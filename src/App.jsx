@@ -8,21 +8,24 @@ function App() {
   const [addToCart, setAddToCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
+
   const handleAddToCart = (book) => {
     const newAddToCart = [...addToCart, book];
 
+
     const totalPriceString = book.bookPrice;
     const totalPriceStringSplit = totalPriceString.split('.');
-    const totalPriceNumber = parseFloat(totalPriceStringSplit[1]);
-    // const newTotalPrice = [...totalPrice, totalPriceNumber]
-    if (totalPriceNumber.includes(',')) {
-      console.log('inside if ');
-    }
+    const totalPriceNumber = parseFloat(totalPriceStringSplit[1].replace(",", ""));
+
+    let totalPrice = totalPriceNumber;
+    totalPrice = totalPrice + totalPriceNumber
+  
+    console.log(totalPrice);
     
-    
+
     setAddToCart(newAddToCart)
-    // setTotalPrice(totalPrice);
-    console.log(totalPriceStringSplit, totalPriceNumber);
+    setTotalPrice(totalPrice);
+
   }
 
   return (
@@ -30,7 +33,7 @@ function App() {
       <h1>House of Book</h1>
       <div className='home-style'>
           <Books handleAddToCart={handleAddToCart}></Books>
-          <Cart addToCart={addToCart}></Cart>
+          <Cart addToCart={addToCart} totalPrice={totalPrice}></Cart>
       </div>
     </>
   )
